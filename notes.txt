@@ -1,0 +1,25 @@
+1. users/register => post
+{
+    "fname" : "", 
+    "email" : "", 
+    "phone" : "", 
+    "password" : "",
+    "confirmpassword" : "",
+
+}
+2. users/login => post [email,password]
+{
+    "email" : "", 
+    "password" : "", 
+}
+3. copy token and put in auth-> bearer
+4. /blood => post [add fields]
+{
+  "description": "Hello hjhujjjgdds",
+  "img": "beautiful picture",
+  "phnumber": "12345678",
+  "bloodType": "B+"
+}
+5. /blood => get
+6. /blood/search => get [query: query -> blood type]
+
