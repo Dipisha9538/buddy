@@ -1,11 +1,11 @@
 const multer = require('multer')
-const maxSize = 2 * 1024 * 1024; //2MB
+const maxSize = 5 * 1024 * 1024; //2MB
 const uuid4 = require('uuid').v4
 const path = require('path')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "public/uploads")
+        cb(null, "public")
     },
     filename: (req, file, cb)=> {
         let ext = path.extname(file.originalname)
@@ -23,7 +23,7 @@ const imageFileFilter = (req, file, cb) => {
 const upload = multer({
     storage: storage,
     fileFilter: imageFileFilter,
-    limits: { fileSize: maxSize },
-}).single('uploadPictures');
+    // limits: { fileSize: maxSize },
+}).array('uploadPictures');
 
 module.exports = upload;

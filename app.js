@@ -1,9 +1,10 @@
 require('dotenv').config()
 const express = require('express')
+const cors = require("cors");
 const mongoose = require('mongoose')
 const user_routes = require('./routes/user-routes')
-// const donorRoute = require("./routes/bloodDonorRoute");
-// const blood_routes = require('./routes/blood-routes')
+const blood_routes = require('./routes/blood-routes');
+const comment_routes = require("./routes/comment-routes");
 const { verifyUser } = require('./middlewares/auth')
 
 const MONGODB_URI = process.env.NODE_ENV === 'test'
@@ -18,6 +19,8 @@ mongoose.connect(MONGODB_URI)
 
 const app = express()
 
+app.use(cors());
+
 app.use(express.json())
 app.use(express.static('public'))
 // app.use(express.static(path.join(__dirname,'public')));
@@ -27,7 +30,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/users', user_routes)
-// app.use("/api/v1/donor", donorRoute);
+app.use("/bloods", verifyUser, blood_routes);
+app.use("/comments", verifyUser, comment_routes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
